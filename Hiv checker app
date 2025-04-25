@@ -1,0 +1,35 @@
+import streamlit as st
+
+st.set_page_config(page_title="HIV Risk Checker", page_icon="❤️")
+
+st.title("Anonymous HIV Risk Checker")
+st.write("Answer the following questions to assess your risk level. No data is stored.")
+
+score = 0
+if st.radio("Have you had unprotected sex in the past 6 months?", ["Yes", "No"]) == "Yes":
+    score += 3
+
+if st.radio("Have you shared needles (tattoos, drugs, etc)?", ["Yes", "No"]) == "Yes":
+    score += 3
+
+partner = st.radio("Has your partner been tested recently?", ["Yes", "No", "Don't know"])
+if partner in ["No", "Don't know"]:
+    score += 2
+
+if st.radio("Are you experiencing fever or night sweats?", ["Yes", "No"]) == "Yes":
+    score += 2
+
+if st.radio("Have you had unexplained weight loss?", ["Yes", "No"]) == "Yes":
+    score += 2
+
+if st.radio("Do you feel fatigue or have swollen lymph nodes?", ["Yes", "No"]) == "Yes":
+    score += 2
+
+if st.button("Check My Risk"):
+    st.subheader("Risk Assessment Result:")
+    if score <= 3:
+        st.success("Low Risk – Stay informed and safe.")
+    elif score <= 6:
+        st.warning("Moderate Risk – Consider getting tested.")
+    else:
+        st.error("High Risk – Please visit a testing center or speak to a counselor.")
